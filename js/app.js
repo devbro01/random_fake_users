@@ -4,7 +4,7 @@ const user = document.getElementById("user");
 const deleteBtn = document.getElementById("delete__btn");
 const clearBtn = document.getElementById("clear__button");
 
-// refer button
+// reload button
 formButton.addEventListener("click", (e) => {
   e.preventDefault();
   reload();
@@ -18,21 +18,21 @@ clearBtn.addEventListener("click", (e) => {
   clearBtn.classList.add("hidden");
 });
 
-// live search input
-form["form__input"].addEventListener("input", (input) => {
-  const inputValue = form["form__input"].value.toLowerCase();
+// live search users by search form
+form["form__input"].addEventListener("input", (data) => {
+  const input_data = form["form__input"].value.toLowerCase();
   const name = document.querySelectorAll(".user__name");
 
   name.forEach((item) => {
-    if (item.lastElementChild.textContent.toLowerCase().includes(inputValue)) {
-      item.parentElement.classList.add("hidden");
-    } else {
+    if (item.lastElementChild.textContent.toLowerCase().includes(input_data)) {
       item.parentElement.classList.remove("hidden");
+    } else {
+      item.parentElement.classList.add("hidden");
     }
   });
 });
 
-// set each commed data to ul
+// display all datas
 const updateUL = (data) => {
   user.innerHTML = "";
   data.forEach((item) => {
@@ -68,14 +68,13 @@ const updateUL = (data) => {
       <span>- ${gender}</span>
     </div>
   </li>
-
+    
     `;
   });
 };
 
-// delete user
 document.addEventListener("click", (e) => {
   if (e.target.classList[0] === "user__delete--btn") {
-    e.target.parentElement.remove()
-}
+    e.target.parentElement.remove();
+  }
 });
