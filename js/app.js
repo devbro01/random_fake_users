@@ -4,27 +4,27 @@ const user = document.getElementById("user");
 const deleteBtn = document.getElementById("delete__btn");
 const clearBtn = document.getElementById("clear__button");
 
-// reload button
+// refresh button
 formButton.addEventListener("click", (e) => {
   e.preventDefault();
-  reload();
-  clearBtn.classList.remove("hidden");
+  requist().then((data) => {
+    updateUI(data.results);
+  });
 });
 
 // clear button
 clearBtn.addEventListener("click", (e) => {
   e.preventDefault();
-  user.innerHTML = "";
-  clearBtn.classList.add("hidden");
+  user.innerHTML = ``;
 });
 
-// live search users by search form
-form["form__input"].addEventListener("input", (data) => {
-  const input_data = form["form__input"].value.toLowerCase();
+// live search
+form["form__input"].addEventListener("input", (item) => {
+  const inputValue = form["form__input"].value.toLowerCase();
   const name = document.querySelectorAll(".user__name");
 
   name.forEach((item) => {
-    if (item.lastElementChild.textContent.toLowerCase().includes(input_data)) {
+    if (item.lastElementChild.textContent.toLowerCase().includes(inputValue)) {
       item.parentElement.classList.remove("hidden");
     } else {
       item.parentElement.classList.add("hidden");
@@ -32,14 +32,13 @@ form["form__input"].addEventListener("input", (data) => {
   });
 });
 
-// display all datas
-const updateUL = (data) => {
-  user.innerHTML = "";
+// reload button
+const updateUI = (data) => {
+  user.innerHTML = ``;
   data.forEach((item) => {
-    const { gender, name, picture, location, dob } = item;
+    const { name, location, picture, dob, gender } = item;
 
     user.innerHTML += `
-    
     <li class="user__item">
     <button id="delete__btn" class="user__delete--btn">
       <i class="fas fa-trash"></i>
@@ -47,7 +46,7 @@ const updateUL = (data) => {
     <img
       class="user__img"
       alt="User photo"
-      src=${picture.large}
+      src="${picture.large}"
       width="100"
       height="100"
     />
@@ -61,14 +60,13 @@ const updateUL = (data) => {
     </div>
     <div class="user__location">
       <span class="material-symbols-outlined">person_pin_circle</span>
-      <span>- ${location.city}, ${location.country}</span>
+      <span>- ${location.city}, ${location.state}</span>
     </div>
     <div class="user__gender">
       <span class="material-symbols-outlined">man</span>
       <span>- ${gender}</span>
     </div>
   </li>
-    
     `;
   });
 };

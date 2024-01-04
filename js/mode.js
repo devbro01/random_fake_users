@@ -1,32 +1,29 @@
 const body = document.querySelector("body");
 const darkBtn = document.getElementById("dark-btn");
 const lightBtn = document.getElementById("light-btn");
+// mode checker
 
-// modeCheck
-const check = localStorage.getItem("mode");
-if (check) {
+const mode = localStorage.getItem("mode");
+if (mode) {
   body.classList.add("dark-mode");
   darkBtn.classList.toggle("hidden");
   lightBtn.classList.toggle("hidden");
 }
 
-// toggle night light
-const toggle = () => {
+// toggle modes
+const toggleMode = () => {
+  body.classList.toggle("dark-mode");
   darkBtn.classList.toggle("hidden");
   lightBtn.classList.toggle("hidden");
-  body.classList.toggle("dark-mode");
 };
 
-// dark button
+// theme
 darkBtn.addEventListener("click", () => {
-  toggle();
-  localStorage.setItem("mode", "dark");
+  toggleMode();
+  localStorage.setItem("mode", "dark-mode");
 });
 
-// light button
 lightBtn.addEventListener("click", () => {
-  toggle();
+  toggleMode();
   localStorage.setItem("mode", "");
 });
-
-// light dark mode changes done
